@@ -41,14 +41,15 @@ body{
     padding: 1.5px;
     display: block;
 }
-.image-container{
-    width:50rem;
-    display: inline-block;
+.photo:hover{
+  width:100%
 }
-.image-container:hover {
-    width:52rem;
-    display: inline-block;
-  } 
+.image-container{
+    width:20rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 .image-display{
     margin: auto;
     display: flex;
@@ -62,8 +63,7 @@ body{
     margin-top: 1rem;
     margin-bottom: 3rem;
     display: flex;
-    align-items: flex-end;
-    justify-content: space-evenly;
+    align-items: center;
 }
 
 .favourite{
@@ -73,10 +73,10 @@ body{
     color: var(--clr-black);
     padding: 0.375rem 1rem;
     letter-spacing: var(--spacing);
-    display: inline-block;
     transition: var(--transition);
-    font-size: 3rem;
-    border: 2px solid var(--clr-black);
+    margin-right: 1.2rem;
+    font-size: 1rem;
+    border: 1px solid var(--clr-black);
     cursor: pointer;
     box-shadow: 2px 2px 10px 1px var( --clr-grey-5);
     border-radius: var(--radius);
@@ -98,8 +98,8 @@ body{
     letter-spacing: var(--spacing);
     display: inline-block;
     transition: var(--transition);
-    font-size: 2rem;
-    border: 2px solid var(--clr-black);
+    font-size: 1rem;
+    border: 1px solid var(--clr-black);
     cursor: pointer;
     box-shadow: 2px 2px 10px 1px var( --clr-grey-5);
     border-radius: var(--radius);
@@ -111,23 +111,25 @@ body{
   .undo:active {
     box-shadow: 0px 0px 0px 0px ;
 }
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+}
 .nav-icon{
     display:none;
 }
 .nav-center {
     width: 100%;
     margin: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 1rem;
     background: var(--clr-red-light);
 }
 .first-word{
-    color:var(white);
+    color:var(--clr-black);
     font-weight:bold;
     text-shadow:2px 2px 8px var(--clr-red-dark);
     font-size: 2.5rem;
+    cursor:context-menu;
 }
 
 .second-word{
@@ -135,15 +137,17 @@ body{
     font-weight:bold;
     text-shadow:2px 2px 8px var(--clr-red-dark);
     font-size: 2.5rem;
+    cursor:context-menu;
 }
 .links {
-    height: 0;
+    height: 0px; 
     overflow:hidden;
     transition: var(--transition);
     list-style-type: none;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: flex-end;
+    flex-direction: column;
   }
   .show-links {
     height: 10rem;
@@ -152,18 +156,16 @@ body{
     display: inline-block;
 }
 .links a {
-    color: var(--clr-grey-3);
+    color:var(--clr-white);
+    text-shadow:2px 2px 8px var(--clr-red-dark);
     font-size: 2rem;
-    text-transform: capitalize;
     letter-spacing: var(--spacing);
     display: block;
     padding: 0.5rem 1rem;
     transition: var(--transition);
-    text-decoration: none;
   }
   .links a:hover {
-    background: var(--clr-primary-8);
-    color: var(--clr-primary-5);
+    color:var(--clr-black);
     padding-left: 1.5rem;
   }
 
@@ -194,10 +196,21 @@ text-decoration: none;
         margin-right: 5%;
         display: block;
     }
-    
-    .nav-header {
-        margin-left: 5%;
-    }
+    .nav-center {
+      width: 100%;
+      margin: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: var(--clr-red-light);
+  }
+  .nav-header {
+    margin-left: 5%;
+    display: flex;
+    justify-content: space-between;
+  }
+ 
     li {
         width: 20rem;
         text-align: center;
@@ -208,6 +221,8 @@ text-decoration: none;
         display: flex;
         font-size: 1.875rem;
         list-style-type: none;
+        padding-left: 0px;
+        flex-direction: row;
       }
       .links a {
         padding: 0;
@@ -226,6 +241,7 @@ text-decoration: none;
         background: var(--clr-red-9);
         color: var(--clr-black);
         padding: 0.375rem 1rem;
+        margin-right: 7rem;
         letter-spacing: var(--spacing);
         display: inline-block;
         transition: var(--transition);
@@ -235,13 +251,7 @@ text-decoration: none;
         box-shadow: 2px 2px 10px 1px var( --clr-grey-5);
         border-radius: var(--radius);
     }
-    .favourite:hover {
-        color: var(--clr-white);
-        background: var(--clr-red-6);
-      }
-      .favourite:active {
-        box-shadow: 0px 0px 0px 0px ;
-    }
+
     
       .undo{
         font-weight: bold;
@@ -258,17 +268,12 @@ text-decoration: none;
         box-shadow: 2px 2px 10px 1px var( --clr-grey-5);
         border-radius: var(--radius);
     }
-    .undo:hover {
-        color: var(--clr-white);
-        background: var(--clr-blue-4);
-      }
-      .undo:active {
-        box-shadow: 0px 0px 0px 0px ;
-    }
     .image-container{
         width:50rem;
-        display: inline-block;
- 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 }
 
 

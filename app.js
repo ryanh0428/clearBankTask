@@ -2,6 +2,8 @@ const url = "https://api.thecatapi.com/v1/images/search?limit=9";
 
 const loading = document.querySelector('.loading');
 const image = document.querySelector('.image-display');
+const showButton = document.querySelector('.nav-showButton');
+const links = document.querySelector(".links");
 const fetchCatImage = async() =>{
     loading.textContent = 'Loading...';
     try{
@@ -115,7 +117,9 @@ async function removeAction(e){
     const targetFavourite = allfavourite.find(element => element.image_id == id)
     deleteFavourite (targetFavourite.id);
 }
-
+showButton.addEventListener('click', ()=>{
+    links.classList.toggle("show-links");
+})
 
 // function retrieveId
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch

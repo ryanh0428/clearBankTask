@@ -121,7 +121,7 @@ body{
 .nav-center {
     width: 100%;
     margin: 0px;
-    padding: 1rem;
+    padding: 1rem 0rem;
     background: var(--clr-red-light);
 }
 .first-word{
@@ -186,6 +186,12 @@ body{
 a {
 text-decoration: none;
 }
+footer {
+  background: var(--clr-red-light);
+  padding: 3rem 1rem;
+  text-align: center;
+  font-size: 2rem;
+}
 
 @media screen and (min-width: 1100px) {
     
@@ -202,7 +208,7 @@ text-decoration: none;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem;
+      padding: 1rem 0rem;
       background: var(--clr-red-light);
   }
   .nav-header {

@@ -4,6 +4,8 @@ const loading = document.querySelector('.loading');
 const image = document.querySelector('.image-display');
 const showButton = document.querySelector('.nav-showButton');
 const links = document.querySelector(".links");
+const date = document.getElementById('date');
+date.innerHTML = new Date().getFullYear();
 const fetchCatImage = async() =>{
     loading.textContent = 'Loading...';
     try{

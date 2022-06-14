@@ -4,59 +4,63 @@ const loading = document.querySelector('.loading');
 const image = document.querySelector('.image-display');
 const showButton = document.querySelector('.nav-showButton');
 const links = document.querySelector(".links");
-const date = document.getElementById('date');
+const date = document.querySelector(".date");
+const scollDown = document.querySelector(".scroll-down");
+const scrollContainer = document.querySelector(".scroll-container");
 date.innerHTML = new Date().getFullYear();
+
+// Receive a json payload from the api for data of 9 images
 const fetchCatImage = async() =>{
-    loading.textContent = 'Loading...';
+    scrollContainer.style.display = "none";
+    loading.innerHTML = '<div style="margin-top:5rem;"class="image-container"><img src="./loading.gif" class="photo"/></div>';
     try{
         const response = await fetch(url,{
             headers:{
                 "x-api-key":"40591b7f-9e94-4029-8c5f-c3260c43fa32"
             }
-        }
-        );
+        });
     if (!response.ok){
         throw new Error(' error');
     }
     const data = await response.json();
-
     return data;
     }catch(error){
         console.log(error.message);
         loading.textContent = 'There was an Error';
     }
-};
+}
 
+//extract the data from jsonpayload and compose a HTML script with the extracted
 const generator = async ()=>{
     let imageArray = await fetchCatImage();
-    let generateBlock = imageArray.map(function(item){
+    let generateBlock = await imageArray.map(function(item){
         return `
         <div class="image-container">
-            <img data-id=${item.id} src=${item.url} class="photo" alt= "cat photo">
+            <a class="image-link" data-id=${item.id} target="_blank" rel="noopener noreferrer" href=${item.url}>
+                <img src=${item.url} class="photo" alt= "cat photo">
+            </a>
             <div class="button-container">
             <button type="button" class="favourite">favourite</button>
             <button type="button" class="undo">undo</button>
             </div>
         </div>
-        `
-    
-    })
+        `   
+    });
     fusedBlock = generateBlock.join("");
-    console.log(fusedBlock);
-    image.innerHTML = fusedBlock;
-    const favouriteBtn = document.querySelectorAll(".favourite");
-    favouriteBtn.forEach(btn =>btn.addEventListener("click",favouriteAction
-    ));
-    const undoBtn = document.querySelectorAll(".undo");
-    undoBtn.forEach(btn => btn.addEventListener("click",removeAction));
+    return fusedBlock;
 }
 
-generator();
+//image container will get the HTML code
+const initialGenerator = async ()=>{
+    image.innerHTML = await generator();
+    addButtonAndEventListner();
+}
+initialGenerator();
 
-async function favouriteAction(e){
+//submit Post request to add a favourite image
+const favouriteAction= async(e) =>{
     const element = e.currentTarget.parentElement.previousElementSibling;
     const id = element.dataset.id;
-    console.log(id);
     const data = {"image_id":id, "sub_id": "your-user-1234"};
     const options = {
         method: 'POST',
@@ -67,10 +71,9 @@ async function favouriteAction(e){
         body: JSON.stringify(data)
     };
     const response = await fetch('https://api.thecatapi.com/v1/favourites', options);
-    const json = await response.json();
-    console.log(json);
-      
+    const json = await response.json(); 
 }
+
 //submit delete request
 const deleteFavourite = async(favouriteId) =>{
     const url = `https://api.thecatapi.com/v1/favourites/${favouriteId}`
@@ -84,14 +87,13 @@ const deleteFavourite = async(favouriteId) =>{
     try{
         const response = await fetch(url, options);
         const json = await response.json();
-        console.log(json);
     }catch(error){
         console.log(error.message);
     }
 }
 
-//Undo button action
-async function removeAction(e){
+//Obtain a list of element from the favourite API, and find the id required
+const removeAction = async(e) =>{
     const element = e.currentTarget.parentElement.previousElementSibling;
     const id = element.dataset.id;
     console.log(id);
@@ -102,8 +104,7 @@ async function removeAction(e){
                 headers:{
                     "x-api-key":"40591b7f-9e94-4029-8c5f-c3260c43fa32"
                 }
-            }
-            );
+            });
         if (!response.ok){
             throw new Error(' error');
         }
@@ -115,21 +116,28 @@ async function removeAction(e){
         }
     }
     const allfavourite = await fetchFavouriteImage();
-    console.log(allfavourite);
-    const targetFavourite = allfavourite.find(element => element.image_id == id)
-    deleteFavourite (targetFavourite.id);
+    const targetFavourite = allfavourite.find(element => element.image_id == id);//find the element containing the image id of removing target
+    try{
+        deleteFavourite (targetFavourite.id);//pass value in the id key of the element to the delete method
+    }catch(error){
+        console.log(error.message);
+    }  
 }
+
 showButton.addEventListener('click', ()=>{
     links.classList.toggle("show-links");
 })
 
-// function retrieveId
-// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+scollDown.addEventListener('click',async()=>{
+    image.innerHTML += await generator();
+    addButtonAndEventListner();
+});
 
-// {
-//     "breeds": [],
-//     "height": 337,
-//     "id": "24m",
-//     "url": "https://cdn2.thecatapi.com/images/24m.jpg",
-//     "width": 450
-//   },
+const addButtonAndEventListner=()=>{
+    const favouriteBtn = document.querySelectorAll(".favourite");
+    favouriteBtn.forEach(btn =>btn.addEventListener("click",favouriteAction
+    ));
+    const undoBtn = document.querySelectorAll(".undo");
+    undoBtn.forEach(btn => btn.addEventListener("click",removeAction));
+    scrollContainer.style.display = "flex";
+}

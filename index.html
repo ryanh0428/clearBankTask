@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Favourite cat Pic</title>
     <link rel="stylesheet" href="./styles.css" /> 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-    />
+    <script src="https://kit.fontawesome.com/f85dacb7b6.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <nav>
+    <nav id="home">
       <div class="nav-center">
         <div class="nav-header">
-          <div class="word-container"><span class= "first-word";>Just</span>&nbsp&nbsp&nbsp&nbsp&nbsp<span class="second-word">Cats</span></div> 
+          <div class="word-container"><a href="index.html"><span class= "first-word">Just</span>&nbsp&nbsp&nbsp&nbsp&nbsp<span class="second-word">Cats</span></a></div> 
           <button class="nav-showButton">
             <i class="fas fa-bars"></i>
           </button>
@@ -27,6 +24,9 @@
           <li>
             <a href="myfavourite.html">My Pick</a>
           </li>
+          <li class="codelink">
+            <a href="https://github.com/ryanh0428/clearBankTask">My Code</a>
+          </li>
         </ul>
         <div class="nav-icon">
           <a href="https://github.com/ryanh0428/clearBankTask"><img src="./PNG/GitHub-Mark-64px.png" /></a>
@@ -36,9 +36,17 @@
     <div class="image-display">
       <p class="loading"></p>
     </div>
+    <div class="scroll-container">
+      <a class="scroll scroll-up" href="#home">                 
+        <i class="fa-solid fa-angles-up"></i>
+      </a>
+      <a class="scroll scroll-down">                 
+        <i class="fa-solid fa-angles-down"></i>
+      </a>
+    </div>
     <footer>
       <p>
-       Ryan Ho &copy; <span id="date"></span>
+       Ryan Ho &copy; <span class="date"></span>
       </p>
     </footer>
     <script src="./app.js"></script>

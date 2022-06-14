@@ -9,7 +9,7 @@ const scollDown = document.querySelector(".scroll-down");
 const scrollContainer = document.querySelector(".scroll-container");
 date.innerHTML = new Date().getFullYear();
 
-// Receive a json payload from the api for data of 9 images
+// Receive a JSON payload from the API for obtaining 9 images
 const fetchCatImage = async() =>{
     scrollContainer.style.display = "none";
     loading.innerHTML = '<div style="margin-top:5rem;"class="image-container"><img src="./loading.gif" class="photo"/></div>';
@@ -30,7 +30,7 @@ const fetchCatImage = async() =>{
     }
 }
 
-//extract the data from jsonpayload and compose a HTML script with the extracted
+//extract the data from the JSON payload and compose an HTML script with the extracted
 const generator = async ()=>{
     let imageArray = await fetchCatImage();
     let generateBlock = await imageArray.map(function(item){
@@ -109,7 +109,6 @@ const removeAction = async(e) =>{
             throw new Error(' error');
         }
         const data = await response.json();
-
         return data;
         }catch(error){
             console.log(error.message);
@@ -123,17 +122,17 @@ const removeAction = async(e) =>{
         console.log(error.message);
     }  
 }
-
+//display pull down menu
 showButton.addEventListener('click', ()=>{
     links.classList.toggle("show-links");
 })
-
+//
 scollDown.addEventListener('click',async()=>{
     image.innerHTML += await generator();
     addButtonAndEventListner();
 });
 
-const addButtonAndEventListner=()=>{
+const addButtonAndEventListner= ()=>{
     const favouriteBtn = document.querySelectorAll(".favourite");
     favouriteBtn.forEach(btn =>btn.addEventListener("click",favouriteAction
     ));

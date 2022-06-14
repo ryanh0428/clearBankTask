@@ -211,6 +211,9 @@ footer {
   right: 0px;
   width: 100%;
 }
+footer p{
+  margin:0.3rem;
+}
 .scroll-container{
   width:50%;
   margin: 0rem auto 7rem auto; 

@@ -9,7 +9,8 @@ const date = document.querySelector(".date");
 let itemCount = 0;
 
 date.innerHTML = new Date().getFullYear();
-// Receive a json payload from the api for data of 9 images
+
+// Receive a JSON payload from the API for favourite image
 const fetchCatImage = async() =>{
     scrollContainer.style.display = "none";
     loading.innerHTML = ' <div style="margin-top:5rem;"class="image-container"><img src="./loading.gif" class="photo"/></div>';
@@ -31,6 +32,7 @@ const fetchCatImage = async() =>{
     }
 }
 
+//extract the data from the JSON payload and compose an HTML script with the extracted
 const generator = async ()=>{
     let imageArray = await fetchCatImage();
     let generateBlock = await imageArray.map(function(item){
@@ -46,9 +48,7 @@ const generator = async ()=>{
         `
     });
     itemCount = generateBlock.length;
-    console.log(itemCount);
     fusedBlock = generateBlock.join("");
-    console.log(fusedBlock);
     image.innerHTML = fusedBlock;
     const undoBtn = document.querySelectorAll(".undo");
     undoBtn.forEach(btn => btn.addEventListener("click",removeAction));
@@ -57,8 +57,6 @@ const generator = async ()=>{
         scrollContainer.style.display = "none";
         image.innerHTML = "<p class='empty'>No favourite image at the moment. <a href='index.html'>Go</a> pick some  =]</p>"
     }
-        
-        
 }
 
 //Undo button action
@@ -82,9 +80,6 @@ async function removeAction(e){
     try{
         const response = await fetch(url, options);
         const json = await response.json();
-        console.log(json);
-        console.log(image.innerHTML);
-        
     }catch(error){
         console.log(error.message);
     } 
